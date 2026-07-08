@@ -1,0 +1,33 @@
+{
+  "name": "AQL Fisio - Gestão de Fisioterapia",
+  "short_name": "AQL Fisio",
+  "description": "Plataforma de gestão de consultas e tratamentos de fisioterapia da AQL Engineering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b5d96",
+  "icons": [
+    {
+      "src": "/assets/aql-fisio-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/aql-fisio-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "shortcuts": [
+    {
+      "name": "Nova Consulta",
+      "short_name": "Marcar",
+      "description": "Marcar uma nova consulta de fisioterapia",
+      "url": "/fisio",
+      "icons": [{ "src": "/assets/aql-fisio-icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}
