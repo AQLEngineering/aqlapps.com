@@ -1,19 +1,9 @@
-// AQL APPS - Universal Service Worker
-console.log('🔔 AQL Service Worker v1.3.2 loaded (Public)');
-
-const VERSION = 'v1.3.2';
-
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(self.clients.claim());
-});
+const a=`
+// AQL APPS - Inline Service Worker (v1.3.2)
+self.addEventListener('install', (e) => self.skipWaiting());
+self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
 
 self.addEventListener('push', (event) => {
-  console.log('📬 Push received');
-  
   let data = {
     title: 'AQL APPS',
     body: 'Nova notificação do sistema',
@@ -52,14 +42,13 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  
-  const urlToOpen = (event.notification.data && event.notification.data.url) || '/fisio';
+  const urlToOpen = (event.notification.data && event.notification.data.url) || '/';
   
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true })
       .then((clientList) => {
         for (const client of clientList) {
-          if (client.url === urlToOpen && 'focus' in client) {
+          if (client.url.includes(urlToOpen) && 'focus' in client) {
             return client.focus();
           }
         }
@@ -69,3 +58,4 @@ self.addEventListener('notificationclick', (event) => {
       })
   );
 });
+`;async function r(){var i;try{const t=new Blob([a],{type:"application/javascript"}),e=URL.createObjectURL(t);return await navigator.serviceWorker.register(e,{scope:"/"})}catch(t){if((i=t==null?void 0:t.message)!=null&&i.includes("protocol")||(t==null?void 0:t.name)==="SecurityError")throw new Error("Service Worker protocols (blob/data) are restricted in this environment");try{const n=`data:application/javascript;charset=utf-8,${encodeURIComponent(a)}`;return await navigator.serviceWorker.register(n,{scope:"/"})}catch{throw new Error("All inline registration methods failed")}}}export{r as registerInlineServiceWorker};
