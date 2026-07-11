@@ -8,13 +8,13 @@
   "theme_color": "#0b5d96",
   "icons": [
     {
-      "src": "/assets/aql-fisio-icon.svg",
+      "src": "/assets/aql-fisio-mark.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/assets/aql-fisio-icon.svg",
+      "src": "/assets/aql-fisio-mark.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
@@ -27,7 +27,7 @@
       "short_name": "Marcar",
       "description": "Marcar uma nova consulta de fisioterapia",
       "url": "/fisio",
-      "icons": [{ "src": "/assets/aql-fisio-icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+      "icons": [{ "src": "/assets/aql-fisio-mark.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]
 }
