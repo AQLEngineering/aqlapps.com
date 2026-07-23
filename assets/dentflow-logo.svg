@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 282" role="img" aria-labelledby="title desc">
+  <title id="title">DentFlow</title>
+  <desc id="desc">DentFlow horizontal logo with connected tooth symbol, wordmark and tagline.</desc>
+  <defs>
+    <linearGradient id="toothStroke" x1="132" y1="26" x2="350" y2="222" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#20aeb7"/>
+      <stop offset="1" stop-color="#0b335f"/>
+    </linearGradient>
+    <linearGradient id="nodeLine" x1="156" y1="40" x2="350" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7ed4d7"/>
+      <stop offset="1" stop-color="#0b335f"/>
+    </linearGradient>
+  </defs>
+
+  <g fill="#20aeb7" opacity="0.95">
+    <rect x="58" y="42" width="15" height="15" rx="2"/>
+    <rect x="31" y="82" width="13" height="13" rx="2"/>
+    <rect x="77" y="91" width="13" height="13" rx="2"/>
+    <rect x="50" y="128" width="12" height="12" rx="2"/>
+    <rect x="91" y="139" width="12" height="12" rx="2"/>
+    <rect x="33" y="174" width="10" height="10" rx="2" opacity="0.7"/>
+    <rect x="75" y="191" width="11" height="11" rx="2"/>
+  </g>
+
+  <path
+    d="M240 38c25-23 66-27 94-5 42 33 35 86 15 136-13 33-22 68-40 96-13 19-44 18-51-7l-10-38c-4-16-27-16-31 0l-10 38c-7 25-38 26-51 7-18-28-27-63-40-96-20-50-27-103 15-136 28-22 69-18 109 5Z"
+    fill="none"
+    stroke="url(#toothStroke)"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <g fill="none" stroke="url(#nodeLine)" stroke-width="2.2" opacity="0.78">
+    <path d="M164 57 211 84 238 38 291 55 339 92"/>
+    <path d="M211 84 238 119 291 55 304 119 339 92"/>
+    <path d="M211 84 189 163 238 119 304 119 289 191"/>
+    <path d="M238 119 238 191 289 191 323 153 339 92"/>
+    <path d="M189 163 238 191 289 191"/>
+  </g>
+
+  <g>
+    <circle cx="164" cy="57" r="6.4" fill="#20aeb7"/>
+    <circle cx="211" cy="84" r="6.4" fill="#20aeb7"/>
+    <circle cx="238" cy="38" r="6.4" fill="#0b335f"/>
+    <circle cx="291" cy="55" r="6.4" fill="#20aeb7"/>
+    <circle cx="339" cy="92" r="6.4" fill="#0b335f"/>
+    <circle cx="238" cy="119" r="6.4" fill="#20aeb7"/>
+    <circle cx="304" cy="119" r="6.4" fill="#0b335f"/>
+    <circle cx="189" cy="163" r="6.4" fill="#20aeb7"/>
+    <circle cx="238" cy="191" r="6.4" fill="#20aeb7"/>
+    <circle cx="289" cy="191" r="6.4" fill="#0b335f"/>
+    <circle cx="323" cy="153" r="6.4" fill="#0b335f"/>
+  </g>
+
+  <text x="392" y="122" font-family="Inter, Avenir Next, Helvetica, Arial, sans-serif" font-size="98" font-weight="500" letter-spacing="-4" fill="#0b335f">Dent</text>
+  <text x="596" y="122" font-family="Inter, Avenir Next, Helvetica, Arial, sans-serif" font-size="98" font-weight="500" letter-spacing="-4" fill="#20aeb7">Flow</text>
+  <text x="397" y="185" font-family="Inter, Avenir Next, Helvetica, Arial, sans-serif" font-size="20" font-weight="650" letter-spacing="3" fill="#5f6674">TECNOLOGIA QUE OTIMIZA O SEU TEMPO.</text>
+</svg>
