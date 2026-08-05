@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">AQL Flow</title>
+  <desc id="desc">AQL Flow horizontal logo with calendar, A mark and agenda preditiva lettering.</desc>
+  <defs>
+    <linearGradient id="flowMark" x1="120" y1="40" x2="342" y2="230" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#082f6f"/>
+      <stop offset="1" stop-color="#19c8bc"/>
+    </linearGradient>
+    <linearGradient id="flowWord" x1="520" y1="155" x2="790" y2="155" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b2e63"/>
+      <stop offset="1" stop-color="#20c4bd"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(92 38) scale(0.62)" fill="none" stroke="url(#flowMark)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M96 66v-18M250 66v-18" stroke-width="18"/>
+    <path d="M77 61H268c38 0 68 30 68 68v124c0 38-30 68-68 68H77c-38 0-68-30-68-68V129c0-38 30-68 68-68Z" stroke-width="14"/>
+    <path d="M112 254 168 131c5-11 21-11 26 0l58 128" stroke-width="18"/>
+    <path d="M204 246 252 294 337 196" stroke-width="18"/>
+  </g>
+
+  <g fill="url(#flowMark)" transform="translate(92 38) scale(0.62)">
+    <circle cx="274" cy="167" r="14"/>
+    <circle cx="322" cy="167" r="11"/>
+    <circle cx="363" cy="167" r="8"/>
+    <circle cx="395" cy="167" r="6"/>
+  </g>
+
+  <g font-family="Inter, Avenir Next, Helvetica, Arial, sans-serif">
+    <text x="360" y="156" font-size="88" font-weight="400" letter-spacing="-2" fill="#082f6f">AQL</text>
+    <text x="555" y="156" font-size="88" font-weight="400" letter-spacing="-2" fill="url(#flowWord)">Flow</text>
+    <text x="366" y="214" font-size="25" font-weight="700" letter-spacing="12" fill="#0b2e63">AGENDA PREDITIVA</text>
+    <text x="368" y="252" font-size="15" font-weight="650" letter-spacing="8" fill="#334155">ANTECIPA . ORGANIZA . TRANSFORMA .</text>
+  </g>
+</svg>

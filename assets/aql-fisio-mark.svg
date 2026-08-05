@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">AQL Fisio</title>
+  <desc id="desc">Movimento humano e coluna integrados na letra A.</desc>
+  <defs>
+    <linearGradient id="navy" x1="42" y1="22" x2="211" y2="230" gradientUnits="userSpaceOnUse"><stop stop-color="#071b46"/><stop offset="1" stop-color="#123b7a"/></linearGradient>
+    <linearGradient id="cyan" x1="42" y1="194" x2="209" y2="78" gradientUnits="userSpaceOnUse"><stop stop-color="#09b7cf"/><stop offset="1" stop-color="#22e0d0"/></linearGradient>
+  </defs>
+  <path d="M128 18c-13 0-22 8-28 21L29 211c-5 13 1 27 17 27h28l26-65h56l27 65h28c16 0 22-14 17-27L156 39c-6-13-15-21-28-21Z" fill="url(#navy)"/>
+  <circle cx="128" cy="68" r="18" fill="#fff"/><circle cx="128" cy="68" r="10" fill="#16ced2"/>
+  <path d="M126 88c-26 23-27 49-8 67-25-5-50 1-78 20 23-8 46-10 68-3 24 8 45 4 67-8 17-10 31-24 41-42-22 20-44 31-66 32-29 1-46-14-38-35 3-9 9-19 14-31Z" fill="#fff"/>
+  <path d="M35 187c35-29 68-37 99-22 31 15 59 3 86-30-18 40-45 62-79 65-37 4-66-14-106-13Z" fill="url(#cyan)"/>
+  <g fill="#16ced2"><circle cx="116" cy="111" r="6"/><circle cx="115" cy="126" r="5.5"/><circle cx="119" cy="140" r="5"/><circle cx="127" cy="152" r="4.5"/><circle cx="137" cy="162" r="4"/></g>
+</svg>

@@ -1,0 +1,336 @@
+{
+  "info": {
+    "_postman_id": "aql-vision-api-collection",
+    "name": "AQL Vision — API Collection",
+    "description": "Coleção completa dos endpoints da API AQL Vision.\n\n**Configuração rápida:**\n1. Importa também o ficheiro de Environment `AQL_Vision.postman_environment.json`\n2. Preenche as variáveis `projectId`, `publicAnonKey` e `sessionToken`\n3. Todos os requests ficam prontos a usar.\n\n**Como obter o sessionToken:**\nFaz login na app AQL Vision, abre o DevTools > Application > LocalStorage e copia o valor de `visionAlertsToken`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://{{projectId}}.supabase.co/functions/v1/server",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Alertas",
+      "description": "Endpoints para gestão de alertas de visão computacional.",
+      "item": [
+        {
+          "name": "GET — Listar Alertas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}",
+                "description": "Chave pública anónima do Supabase"
+              },
+              {
+                "key": "X-Session-Token",
+                "value": "{{sessionToken}}",
+                "description": "JWT de sessão do utilizador autenticado OU viewer_token recebido por email"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vision-alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision-alerts"]
+            },
+            "description": "Retorna todos os alertas ordenados por data de criação (mais recentes primeiro).\n\n**Autenticação suportada:**\n- JWT de sessão normal (`aql_auth_token`)\n- Viewer token recebido por email (começa com `viewer_`)\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"alerts\": [\n    {\n      \"id\": \"2024-01-15_08-30-00_lesao_cutanea_abc12\",\n      \"userId\": \"external-service\",\n      \"userEmail\": \"sistema@ai.com\",\n      \"imageUrl\": \"https://...\",\n      \"status\": \"por_tratar\",\n      \"problemName\": \"Lesão Cutânea\",\n      \"problemDescription\": \"...\",\n      \"proposedSolution\": \"...\",\n      \"inference\": \"87%\",\n      \"aiAnalysis\": {\n        \"confidence\": 0.87,\n        \"detectedIssues\": [\"Descoloração\"],\n        \"recommendation\": \"...\"\n      },\n      \"metadata\": {\n        \"tenant\": \"Flatlantic\",\n        \"location\": \"Tanque 4\",\n        \"VisionKit\": \"RCAM-01\",\n        \"Timestamp\": \"15/01/2024 08:30:00\"\n      },\n      \"createdAt\": \"2024-01-15T08:30:00.000Z\",\n      \"updatedAt\": \"2024-01-15T08:30:00.000Z\"\n    }\n  ]\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "POST — Criar Alerta (via URL de imagem)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}",
+                "description": "Chave pública anónima do Supabase"
+              },
+              {
+                "key": "X-Session-Token",
+                "value": "{{sessionToken}}",
+                "description": "JWT de sessão (opcional neste endpoint — aceita chamadas externas)"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"imageUrl\": \"https://images.unsplash.com/photo-1524704654690-b56c05c78a00?w=800\",\n  \"userId\": \"sensor-rcam01\",\n  \"userEmail\": \"sensor@visionkit.local\",\n  \"status\": \"por_tratar\",\n  \"problemName\": \"Lesão Cutânea Suspeita\",\n  \"problemDescription\": \"Área de descoloração detetada no flanco direito do espécime.\",\n  \"proposedSolution\": \"\",\n  \"inference\": \"87%\",\n  \"aiAnalysis\": {\n    \"confidence\": 0.87,\n    \"detectedIssues\": [\"Descoloração\", \"Possível Parasita\"],\n    \"recommendation\": \"Rever manualmente para confirmar.\"\n  },\n  \"metadata\": {\n    \"tenant\": \"Flatlantic Demo\",\n    \"location\": \"Tanque 4 — Produção\",\n    \"VisionKit\": \"RCAM-01\",\n    \"Timestamp\": \"15/01/2024 08:30:00\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vision-alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision-alerts"]
+            },
+            "description": "Cria um novo alerta a partir de um URL de imagem público.\nO servidor tenta fazer mirror da imagem para o bucket Supabase `make-113fe7c2-vision`.\n\n**Campos obrigatórios:** `imageUrl` OU `imageBase64` (um dos dois)\n\n**Comportamento automático:**\n- Se `id` não for fornecido, é gerado automaticamente no formato `YYYY-MM-DD_HH-MM-SS_slug_random`\n- Se `imageUrl` for um URL público, a imagem é copiada para o bucket privado\n- Envia email de notificação para os destinatários configurados\n- Gera viewer token para deep link no email\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"success\": true,\n  \"alert\": { ... },\n  \"emailNotification\": {\n    \"sent\": true,\n    \"recipients\": [\"lab@empresa.com\"]\n  }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "POST — Criar Alerta (via Base64)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"imageBase64\": \"/9j/4AAQSkZJRgABAQEASABIAAD...(base64 string)\",\n  \"userId\": \"sensor-rcam01\",\n  \"userEmail\": \"sensor@visionkit.local\",\n  \"status\": \"por_tratar\",\n  \"problemName\": \"Defeito Superficial\",\n  \"problemDescription\": \"Arranhão profundo detetado na superfície da peça.\",\n  \"inference\": \"92%\",\n  \"aiAnalysis\": {\n    \"confidence\": 0.92,\n    \"detectedIssues\": [\"Arranhão\", \"Irregularidade Superficial\"],\n    \"recommendation\": \"Peça não conforme. Retirar da linha.\"\n  },\n  \"metadata\": {\n    \"tenant\": \"Produção Norte\",\n    \"location\": \"Linha 3 — Estação 7\",\n    \"VisionKit\": \"CAM-INSP-03\",\n    \"Timestamp\": \"15/01/2024 14:22:10\",\n    \"batch\": \"LOTE-2024-001\",\n    \"partNumber\": \"PN-4872\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vision-alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision-alerts"]
+            },
+            "description": "Cria um novo alerta enviando a imagem em Base64 directamente no body.\nIdeal para câmeras embarcadas que não têm URL público.\n\nO servidor faz upload direto para o bucket `make-113fe7c2-vision`.\nO campo `imageBase64` aceita tanto a string pura como o data URL completo (ex: `data:image/jpeg;base64,...`)."
+          },
+          "response": []
+        },
+        {
+          "name": "PUT — Classificar / Atualizar Alerta",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              },
+              {
+                "key": "X-Session-Token",
+                "value": "{{sessionToken}}",
+                "description": "JWT de sessão OU viewer_token. Viewers podem classificar mas NÃO podem apagar."
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"classificado\",\n  \"problemName\": \"Ichthyophthirius multifiliis (Ich)\",\n  \"problemDescription\": \"Parasita protozoário confirmado. Pontos brancos visíveis nas barbatanas e corpo. Infeção moderada.\",\n  \"proposedSolution\": \"Tratamento com formalina 25ppm durante 1h. Repetir em 48h. Monitorizar temperatura para 28°C.\",\n  \"validated\": true,\n  \"validationResult\": \"confirmed\",\n  \"labObservations\": \"Confirmado sob microscopia óptica (400x). Trofonte em fase ativa.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vision-alerts/{{alertId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision-alerts", "{{alertId}}"]
+            },
+            "description": "Atualiza a classificação e estado de um alerta existente.\n\n**Status válidos:** `por_tratar` | `classificado` | `resolvido`\n\n**validationResult válidos:** `confirmed` | `rejected`\n\nO servidor guarda automaticamente a auditoria completa:\n- `classifiedBy`, `classifiedByEmail`\n- `classifiedByName`, `classifiedByJobTitle`, `classifiedByInstitution` (do perfil profissional)\n- `classifiedAt`\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"alert\": {\n    \"id\": \"...\",\n    \"status\": \"classificado\",\n    \"classifiedBy\": \"medico@lab.com\",\n    \"classifiedByName\": \"Dr. João Silva\",\n    \"classifiedByJobTitle\": \"Médico Veterinário\",\n    \"classifiedAt\": \"2024-01-15T10:45:00.000Z\",\n    ...\n  }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE — Remover Alerta",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              },
+              {
+                "key": "X-Session-Token",
+                "value": "{{sessionToken}}",
+                "description": "Apenas JWT de sessão completo. Viewer tokens recebem 403 Forbidden."
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vision-alerts/{{alertId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision-alerts", "{{alertId}}"]
+            },
+            "description": "Remove permanentemente um alerta da KV store.\n\n**Restrições:**\n- Viewer tokens (vindos de email) recebem `403 Forbidden` — apenas utilizadores com sessão completa podem apagar\n- Verifica ambos os prefixos de chave (`AQL_VISION_ALERT:` e `visionAlert:`) para retrocompatibilidade\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"success\": true,\n  \"message\": \"Alert deleted successfully\"\n}\n```\n\n**Resposta de erro (403):**\n```json\n{\n  \"error\": \"Unauthorized: Viewers cannot delete alerts\"\n}\n```"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Logs de Sistema",
+      "description": "Endpoints para logs históricos de telemetria industrial.",
+      "item": [
+        {
+          "name": "POST — Registar Log",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"quality_check\",\n  \"level\": \"warning\",\n  \"message\": \"Parâmetros fora do intervalo nominal: pH 6.1 (limite: 6.5-8.5)\",\n  \"source\": \"sensor-ph-tanque4\",\n  \"timestamp\": \"2024-01-15T09:15:00.000Z\",\n  \"imageUrl\": \"https://images.unsplash.com/photo-1518770660439-4636190af475?w=800\",\n  \"metadata\": {\n    \"sensor\": \"PH-SENSOR-04\",\n    \"location\": \"Tanque 4 — Recirculação\",\n    \"value\": 6.1,\n    \"unit\": \"pH\",\n    \"threshold_min\": 6.5,\n    \"threshold_max\": 8.5,\n    \"temperature\": 18.2,\n    \"dissolved_oxygen\": 7.8\n  },\n  \"inference\": \"98%\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vision-logs",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision-logs"]
+            },
+            "description": "Regista um evento histórico de telemetria na KV store com prefixo `AQL_VISION_LOG:`.\n\n**Não requer autenticação** — é um endpoint de ingestão para sistemas externos.\n\n**Níveis válidos:** `info` | `warning` | `error`\n\nSe `imageUrl` ou `imageBase64` for fornecido, a imagem é guardada no bucket `make-113fe7c2-vision-logs`.\n\nSe `id` não for fornecido, é gerado automaticamente.\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"success\": true,\n  \"log\": {\n    \"id\": \"2024-01-15_09-15-00_abc12\",\n    \"timestamp\": \"2024-01-15T09:15:00.000Z\",\n    \"type\": \"quality_check\",\n    \"level\": \"warning\",\n    \"message\": \"...\",\n    \"imageUrl\": \"https://...\",\n    \"storagePath\": \"2024-01-15_09-15-00_abc12.jpg\",\n    \"metadata\": { ... },\n    \"source\": \"sensor-ph-tanque4\"\n  }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "GET — Listar Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              },
+              {
+                "key": "X-Session-Token",
+                "value": "{{sessionToken}}",
+                "description": "JWT de sessão obrigatório para ler logs"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vision-logs",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision-logs"]
+            },
+            "description": "Retorna os últimos 100 logs de sistema ordenados por timestamp (mais recentes primeiro).\n\nRequer autenticação com JWT de sessão válido.\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"logs\": [\n    {\n      \"id\": \"2024-01-15_09-15-00_abc12\",\n      \"timestamp\": \"2024-01-15T09:15:00.000Z\",\n      \"type\": \"quality_check\",\n      \"level\": \"warning\",\n      \"message\": \"Parâmetros fora do intervalo nominal\",\n      \"imageUrl\": \"https://...\",\n      \"source\": \"sensor-ph-tanque4\",\n      \"metadata\": { ... }\n    }\n  ]\n}\n```"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Configuração de IA",
+      "description": "Endpoints para gerir o contexto de análise da IA.",
+      "item": [
+        {
+          "name": "GET — Obter Contexto de IA",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vision/ai-context",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision", "ai-context"]
+            },
+            "description": "Retorna o prompt de contexto atual da IA.\nSe não houver configuração guardada, devolve o contexto padrão (Análise Genérica).\n\n**Não requer autenticação de sessão.**\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"context\": \"Estás a analisar um espécime marinho. Identifica potenciais patologias...\",\n  \"isDefault\": false\n}\n```\n\n**Templates disponíveis na app:**\n- 🐟 Análise Marinha\n- 🏭 Controlo de Qualidade Industrial\n- 🚗 Inspeção de Veículos\n- 🏗️ Defeitos em Construção\n- 📷 Análise Genérica\n- ✏️ Personalizado"
+          },
+          "response": []
+        },
+        {
+          "name": "POST — Guardar Contexto de IA",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"context\": \"Estás a analisar um espécime marinho. Identifica potenciais patologias nos peixes, sinais de doenças, parasitas, lesões, alterações de comportamento e também avalia as condições da água (turbidez, cor, presença de algas, qualidade aparente). Foca-te em problemas de saúde dos animais e qualidade do ambiente aquático.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vision/ai-context",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision", "ai-context"]
+            },
+            "description": "Guarda o prompt de contexto que será usado pela IA para analisar imagens.\n\n**Limites:** máximo 2000 caracteres.\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"success\": true,\n  \"context\": \"Estás a analisar um espécime marinho...\"\n}\n```\n\n**Resposta de erro (400):**\n```json\n{\n  \"error\": \"Context too long (max 2000 characters)\"\n}\n```"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Deep Linking",
+      "description": "Endpoints para gestão de acesso direto via links de email.",
+      "item": [
+        {
+          "name": "POST — Verificar Viewer Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{publicAnonKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"viewerToken\": \"viewer_1705312200000_abc123xyz\",\n  \"alertId\": \"2024-01-15_08-30-00_lesao_cutanea_abc12\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vision/verify-viewer-token",
+              "host": ["{{baseUrl}}"],
+              "path": ["vision", "verify-viewer-token"]
+            },
+            "description": "Valida um viewer token recebido por email para acesso direto a um alerta específico.\n\n**Fluxo completo de Deep Linking:**\n1. Hardware envia alerta via `POST /vision-alerts`\n2. Servidor gera `viewer_token` e guarda na KV store\n3. Servidor envia email com URL: `https://app.com?app=vision&viewerToken=viewer_xxx&alertId=yyy`\n4. Utilizador clica no link, a app extrai os parâmetros da URL\n5. A app chama este endpoint para validar o token\n6. Se válido, o utilizador acede diretamente ao alerta sem fazer login\n\n**Resposta de sucesso (200):**\n```json\n{\n  \"valid\": true,\n  \"alertId\": \"2024-01-15_08-30-00_lesao_cutanea_abc12\"\n}\n```\n\n**Resposta de token inválido/expirado (200):**\n```json\n{\n  \"valid\": false,\n  \"error\": \"Token not found or expired\"\n}\n```\n\n**Resposta de parâmetros em falta (400):**\n```json\n{\n  \"valid\": false,\n  \"error\": \"Missing token or alert ID\"\n}\n```"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

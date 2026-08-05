@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Lia</title>
+  <desc id="desc">Assistente clínica da AQL Fisio</desc>
+  <defs>
+    <linearGradient id="liaA" x1="46" y1="28" x2="208" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0b2457"/>
+      <stop offset=".58" stop-color="#135da1"/>
+      <stop offset="1" stop-color="#13c9c2"/>
+    </linearGradient>
+    <linearGradient id="liaGlow" x1="58" y1="190" x2="211" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#16d9d0"/>
+      <stop offset="1" stop-color="#7868ff"/>
+    </linearGradient>
+  </defs>
+  <path d="M128 25c-12 0-20 7-26 20L39 205c-6 15 1 26 16 26h24l19-49h59l20 49h24c15 0 22-11 16-26L154 45c-6-13-14-20-26-20Z" fill="url(#liaA)"/>
+  <path d="M128 72 105 151h46L128 72Z" fill="#fff" fill-opacity=".96"/>
+  <path d="M50 180c37-25 70-28 100-9 29 18 53 5 73-26-13 40-38 65-72 67-37 2-62-25-101-32Z" fill="url(#liaGlow)"/>
+  <path d="M193 56l5 13 13 5-13 5-5 13-5-13-13-5 13-5 5-13Z" fill="#25ddd4"/>
+  <path d="M165 34l3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#8b7cff"/>
+  <circle cx="207" cy="112" r="6" fill="#8b7cff"/>
+</svg>
