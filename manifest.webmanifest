@@ -2,7 +2,9 @@
   "name": "AQL Fisio - Gestão de Fisioterapia",
   "short_name": "AQL Fisio",
   "description": "Plataforma de gestão de consultas e tratamentos de fisioterapia da AQL Engineering.",
-  "start_url": "/",
+  "id": "/fisio/",
+  "start_url": "/fisio/",
+  "scope": "/fisio/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0b5d96",
@@ -26,7 +28,7 @@
       "name": "Nova Consulta",
       "short_name": "Marcar",
       "description": "Marcar uma nova consulta de fisioterapia",
-      "url": "/fisio",
+      "url": "/fisio/",
       "icons": [{ "src": "/assets/aql-fisio-mark.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]
