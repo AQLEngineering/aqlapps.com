@@ -1,9 +1,8 @@
 // AQL APPS - Universal Service Worker
-console.log('🔔 AQL Service Worker v2.1.0 loaded (Offline First)');
+console.log('🔔 AQL Service Worker v2.0.0 loaded (Offline First)');
 
-const VERSION = 'v2.1.0';
+const VERSION = 'v2.0.0';
 const APP_CACHE = `aql-fisio-app-${VERSION}`;
-const BODYCHART_CACHE = `aql-fisio-bodychart-${VERSION}`;
 const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
@@ -13,10 +12,7 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(Promise.all([
-    caches.keys().then((keys) => Promise.all(keys.filter((key) => (
-      (key.startsWith('aql-fisio-app-') && key !== APP_CACHE)
-      || (key.startsWith('aql-fisio-bodychart-') && key !== BODYCHART_CACHE)
-    )).map((key) => caches.delete(key)))),
+    caches.keys().then((keys) => Promise.all(keys.filter((key) => key.startsWith('aql-fisio-app-') && key !== APP_CACHE).map((key) => caches.delete(key)))),
     self.clients.claim(),
   ]));
 });
@@ -40,15 +36,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  const isBodychartFrame = /^\/assets\/frame-\d+.*\.webp$/.test(url.pathname);
-
   if (url.pathname.startsWith('/assets/') || url.pathname === '/manifest.webmanifest') {
     event.respondWith(
       caches.match(request).then((cached) => cached || fetch(request).then((response) => {
-        if (response.ok) {
-          const copy = response.clone();
-          caches.open(isBodychartFrame ? BODYCHART_CACHE : APP_CACHE).then((cache) => cache.put(request, copy));
-        }
+        const copy = response.clone();
+        caches.open(APP_CACHE).then((cache) => cache.put(request, copy));
         return response;
       }))
     );
