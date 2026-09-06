@@ -1,7 +1,7 @@
 // AQL APPS - Universal Service Worker
-console.log('🔔 AQL Service Worker v2.1.0 loaded (Offline First)');
+console.log('🔔 AQL Service Worker v2.1.2 loaded (Offline First)');
 
-const VERSION = 'v2.1.0';
+const VERSION = 'v2.1.2';
 const APP_CACHE = `aql-fisio-app-${VERSION}`;
 const BODYCHART_CACHE = `aql-fisio-bodychart-${VERSION}`;
 const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest'];
@@ -29,7 +29,7 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'reload' })
         .then((response) => {
           const copy = response.clone();
           caches.open(APP_CACHE).then((cache) => cache.put('/index.html', copy));
