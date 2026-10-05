@@ -17,4 +17,3 @@ Use case: photorealistic-natural. Asset: synthetic illustrative photo for AQLFis
 ## drenagem
 
 Use case: photorealistic-natural. Asset: synthetic illustrative photo for AQLFisio demo clinic clinical gallery. Clinical close-up of gentle manual lymphatic massage of an adult woman's lower leg, lying supine on a white treatment table, modestly draped with towel, only lower leg visible. Female physiotherapist's two hands gently placed along calf, natural anatomy, professional non-sexual medical scene. Bright contemporary Portuguese physiotherapy clinic, soft daylight, calm white and pale teal environment, natural skin textures, editorial clinical photography, landscape 3:2. Exactly one patient and one clinician where visible. No text, logos, watermark, medical devices not needed, or dramatic before/after claims. This is a fictional demonstration scene, not a real patient.
-
