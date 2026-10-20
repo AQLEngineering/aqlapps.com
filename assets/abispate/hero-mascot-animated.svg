@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 500" role="img" aria-labelledby="title desc">
+  <title id="title">A lâmpada Abispa-te</title>
+  <desc id="desc">Uma lâmpada com óculos e um gesto de descoberta, entre folhas verdes e pinceladas azuis.</desc>
+  <defs>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="3" seed="12" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <mask id="green-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="660" height="500">
+      <path class="paint paint-green" d="M250 420 Q190 320 242 150 Q268 90 309 174 L330 389 Q427 330 550 308 Q625 296 548 385 L390 421" fill="none" stroke="white" stroke-width="125" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/>
+    </mask>
+    <mask id="blue-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="660" height="500">
+      <path class="paint paint-blue" d="M170 424 Q320 498 611 434" fill="none" stroke="white" stroke-width="90" stroke-linecap="round" pathLength="1"/>
+    </mask>
+  </defs>
+  <style>
+    .paint{stroke-dasharray:1;stroke-dashoffset:0}
+    .paint-green{animation:paint 1.25s cubic-bezier(.4,0,.2,1) both}
+    .paint-blue{animation:paint 1s .35s cubic-bezier(.4,0,.2,1) both}
+    .grass{transform-box:fill-box;transform-origin:bottom center;animation:grow 1s .65s cubic-bezier(.22,1,.36,1) both}
+    .grass-second{animation-delay:.85s}
+    .bulb{transform-box:fill-box;transform-origin:center bottom;animation:appear .95s .95s cubic-bezier(.22,1,.36,1) both}
+    .spark{transform-box:fill-box;transform-origin:center;animation:spark .5s 1.6s ease-out both}
+    .spark-second{animation-delay:1.8s}
+    @keyframes paint{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+    @keyframes grow{from{transform:scaleY(.02);opacity:0}to{transform:scaleY(1);opacity:1}}
+    @keyframes appear{from{transform:translateY(18px) rotate(-6deg);opacity:0}to{transform:translateY(0) rotate(0);opacity:1}}
+    @keyframes spark{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+    @media(prefers-reduced-motion:reduce){.paint,.grass,.bulb,.spark{animation:none}}
+  </style>
+  <g filter="url(#paper)">
+    <g mask="url(#green-reveal)" fill="#b9d897">
+      <path d="M290 414C218 435 163 397 173 345C180 310 215 321 231 339C247 357 262 352 252 325C240 293 197 241 205 192C212 139 251 113 287 131C352 165 340 244 331 294C325 332 315 387 290 414Z"/>
+      <path d="M329 409C330 364 408 309 479 288C534 272 598 285 598 335C597 391 477 447 375 432Z"/>
+    </g>
+    <g mask="url(#blue-reveal)">
+      <path d="M174 407C214 395 280 428 329 439C423 461 505 449 604 426C616 423 624 428 609 443C552 486 349 499 223 469C181 459 147 437 174 407Z" fill="#9ed4ef"/>
+      <path d="M181 430Q360 493 602 441" fill="none" stroke="#c2e6f6" stroke-width="5" opacity=".7"/>
+    </g>
+    <g class="grass" fill="#79a77c">
+      <path d="M149 462C118 421 55 376 48 327C44 304 56 296 71 310C103 339 122 402 149 462Z"/>
+      <path d="M145 452C113 429 78 431 59 410C35 382 59 374 84 388C112 405 131 430 145 452Z"/>
+      <path d="M144 454C122 406 116 340 134 320C157 294 168 343 158 382C151 409 145 432 144 454Z"/>
+      <path d="M143 449Q110 380 62 322M143 449Q146 381 141 335M137 444L70 401" fill="none" stroke="#5c9065" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g class="grass grass-second" fill="#93b889">
+      <path d="M170 461Q163 410 181 388Q198 418 170 461Z"/>
+      <path d="M169 460Q146 430 150 416Q174 422 169 460Z"/>
+    </g>
+    <g class="bulb">
+      <path d="M411 350Q463 338 500 333Q511 329 510 309L513 261" fill="none" stroke="#0b3650" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M513 266C499 255 500 243 507 235L504 213Q501 203 508 202Q516 200 520 215L526 236Q535 252 522 266Z" fill="#0b3650"/>
+      <path d="M321 376C338 338 343 316 321 278C295 235 304 194 334 169C369 140 421 142 452 163C494 190 502 232 478 268C456 302 408 311 390 345L378 393Z" fill="#fff" stroke="#0b3650" stroke-width="15" stroke-linejoin="round"/>
+      <g fill="none" stroke="#0b3650" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M329 190L376 199Q381 200 379 207L371 237Q369 242 362 241L325 232Q319 230 321 222Z"/>
+        <path d="M411 207L455 219Q461 221 458 227L448 258Q447 262 440 260L404 250Q397 248 399 241Z"/>
+        <path d="M378 218L396 223M364 274Q384 290 410 276"/>
+      </g>
+      <g fill="#0b3650"><circle cx="347" cy="216" r="8"/><circle cx="428" cy="237" r="8"/></g>
+      <path d="M318 373Q344 372 382 393" fill="none" stroke="#ffe333" stroke-width="23" stroke-linecap="round"/>
+      <path d="M315 393Q340 392 379 414" fill="none" stroke="#91bf55" stroke-width="23" stroke-linecap="round"/>
+      <path d="M311 414Q338 417 372 433" fill="none" stroke="#9ed4ef" stroke-width="21" stroke-linecap="round"/>
+      <g fill="none" stroke="#0b3650" stroke-width="9" stroke-linecap="round">
+        <path d="M380 128L375 105M420 129L426 101M457 146L472 127M488 175L508 163"/>
+      </g>
+    </g>
+    <g class="spark" fill="none" stroke="#ffe333" stroke-width="12" stroke-linecap="round">
+      <path d="M441 69L446 32M478 80L497 48"/>
+    </g>
+    <g class="spark spark-second" fill="none" stroke="#ffe333" stroke-width="12" stroke-linecap="round">
+      <path d="M165 245L148 214M146 280L112 263"/>
+    </g>
+  </g>
+</svg>
