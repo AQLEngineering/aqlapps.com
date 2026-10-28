@@ -4,7 +4,13 @@ console.log('🔔 AQL Service Worker v2.1.2 loaded (Offline First)');
 const VERSION = 'v2.1.2';
 const APP_CACHE = `aql-fisio-app-${VERSION}`;
 const BODYCHART_CACHE = `aql-fisio-bodychart-${VERSION}`;
-const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest'];
+const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest',
+  '/assets/fisio-demo/sofia-9bd8032c.jpg',
+  '/assets/fisio-demo/miguel-04a120bd.jpg',
+  '/assets/fisio-demo/ines-07b31ea7.jpg',
+  '/assets/fisio-demo/tiago-1c6b715d.jpg',
+  '/assets/fisio-demo/beatriz-cf13a4bb.jpg',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(APP_CACHE).then((cache) => cache.addAll(APP_SHELL)));
