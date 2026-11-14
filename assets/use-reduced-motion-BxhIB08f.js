@@ -1,1 +1,0 @@
-import{bV as t,bW as o,r,bX as s}from"./index-fj25Qwly.js";function u(){!t.current&&o();const[e]=r.useState(s.current);return e}export{u};
