@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "pt.aqlfisio.utente",
+      "sha256_cert_fingerprints": ["12:CE:DD:BE:ED:59:CE:5D:E4:25:5F:CC:4D:51:55:B8:D6:79:26:63:1B:42:07:A0:3F:FC:F0:9D:28:9F:8F:FC"]
+    }
+  }
+]
