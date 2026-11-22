@@ -1,0 +1,1 @@
+import{r as i,j as t,aa as o}from"./index-B4crgrFy.js";var s="VisuallyHidden",r=i.forwardRef((a,e)=>t.jsx(o.span,{...a,ref:e,style:{position:"absolute",border:0,width:1,height:1,padding:0,margin:-1,overflow:"hidden",clip:"rect(0, 0, 0, 0)",whiteSpace:"nowrap",wordWrap:"normal",...a.style}}));r.displayName=s;var l=r;export{l as R,r as V};
